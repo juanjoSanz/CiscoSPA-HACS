@@ -63,7 +63,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     try:
         cisco_data = CiscoData(hostname, username, password)
-        cisco_data.update()
+        cisco_data.async_update()
     except requests.exceptions.HTTPError as error:
         _LOGGER.error("Failed login: %s", error)
         return False
