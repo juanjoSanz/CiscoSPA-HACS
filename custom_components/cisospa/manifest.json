@@ -5,6 +5,7 @@
   "documentation": "https://github.com/juanjoSanz/CiscoSPA-HACS",
   "requirements": ["pyciscospa==0.1.4"],
   "dependencies": [],
-  "version": "0.1",
-  "codeowners": ["@juanjoSanz", "@davejcameron"]
+  "codeowners": ["@juanjoSanz", "@davejcameron"],
+  "iot_class": "local_polling",
+  "version": "0.1"
 }
