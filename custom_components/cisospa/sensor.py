@@ -138,6 +138,12 @@ class CiscoData(object):
         self.data = {}
 
     async def async_update(self):
+        """Fetch new state data for this sensor."""
+        _LOGGER.debug("Async Update Cisco SPA sensor %s", self._name)
+        await self._hass.async_add_executor_job(self.update())
+
+        
+    def update(self):
         """Get the latest data from Cisco SPA."""
         _LOGGER.info("Updating data object")
         from pyciscospa.client import PyCiscoSPAError
