@@ -4,12 +4,14 @@ Support for Cisco ATAs for VOIP systems
 For more details about this platform, please refer to the documentation at
 https://home-assistant.io/components/sensor.ciscospa/
 """
-import asyncio
+from __future__ import annotations
+
 import logging
 from datetime import timedelta
 
 import requests
 import voluptuous as vol
+
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
 from homeassistant.helpers.entity import Entity
@@ -51,8 +53,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 })
 
 
-@asyncio.coroutine
-def async_setup_platform(hass, config, async_add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the Cisco SPA sensor."""
 
     hostname = config.get(CONF_HOST)
