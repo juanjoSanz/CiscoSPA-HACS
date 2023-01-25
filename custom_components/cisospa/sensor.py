@@ -122,7 +122,7 @@ class CiscoSPASensor(Entity):
     async def async_update(self):
         """Get the latest data from Cisco SPA and update the state."""
         _LOGGER.info("Updating sensor %s", self._name)
-        self.cisco_data.update()
+        self.cisco_data.async_update()
         if self.type in self.cisco_data.data[self._line-1]:
             self._state = self.cisco_data.data[self._line-1][self.type]
 
