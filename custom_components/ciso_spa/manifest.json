@@ -1,0 +1,9 @@
+{
+  "domain": "ciso_spa",
+  "name": "ciso_spa",
+  "documentation": "https://github.com/juanjoSanz/CiscoSPA-HACS",
+  "dependencies": [],
+  "codeowners": ["@juanjoSanz", "@davejcameron"],
+  "requirements": [],
+  "homeassistant": ""
+}
