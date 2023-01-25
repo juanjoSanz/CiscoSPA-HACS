@@ -139,7 +139,6 @@ class CiscoData(object):
 
     async def async_update(self):
         """Fetch new state data for this sensor."""
-        _LOGGER.debug("Async Update Cisco SPA sensor %s", self._name)
         await self._hass.async_add_executor_job(self.update())
 
         
