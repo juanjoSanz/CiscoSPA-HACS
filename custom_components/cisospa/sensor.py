@@ -19,7 +19,6 @@ from homeassistant.const import (
     CONF_USERNAME, CONF_PASSWORD,
     CONF_NAME, CONF_MONITORED_VARIABLES, CONF_HOST)
 import homeassistant.helpers.config_validation as cv
-from homeassistant.util import Throttle
 
 REQUIREMENTS = ['pyciscospa==0.1.4']
 
@@ -63,7 +62,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     try:
         cisco_data = CiscoData(hostname, username, password)
-        cisco_data.update()
+        await cisco_data.async_update()
     except requests.exceptions.HTTPError as error:
         _LOGGER.error("Failed login: %s", error)
         return False
@@ -123,7 +122,7 @@ class CiscoSPASensor(Entity):
     async def async_update(self):
         """Get the latest data from Cisco SPA and update the state."""
         _LOGGER.info("Updating sensor %s", self._name)
-        self.cisco_data.async_update()
+        await self.cisco_data.async_update()
         if self.type in self.cisco_data.data[self._line-1]:
             self._state = self.cisco_data.data[self._line-1][self.type]
 
@@ -138,8 +137,7 @@ class CiscoData(object):
         self.client = CiscoClient(hostname, username, password)
         self.data = {}
 
-    @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    def update(self):
+    async def async_update(self):
         """Get the latest data from Cisco SPA."""
         _LOGGER.info("Updating data object")
         from pyciscospa.client import PyCiscoSPAError
