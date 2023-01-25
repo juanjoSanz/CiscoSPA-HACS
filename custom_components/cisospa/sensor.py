@@ -63,7 +63,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     try:
         cisco_data = CiscoData(hostname, username, password)
-        await cisco_data.async_update()
+        cisco_data.update()
     except requests.exceptions.HTTPError as error:
         _LOGGER.error("Failed login: %s", error)
         return False
@@ -75,7 +75,8 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
                                           line['line']))
 
     _LOGGER.info("Loading sensors %s", sensors)
-    async_add_devices(sensors, True)
+    async_add_devices(sensors, update_before_add=True)
+    
 
 
 class CiscoSPASensor(Entity):
@@ -138,7 +139,7 @@ class CiscoData(object):
         self.data = {}
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    async def async_update(self):
+    def update(self):
         """Get the latest data from Cisco SPA."""
         _LOGGER.info("Updating data object")
         from pyciscospa.client import PyCiscoSPAError
