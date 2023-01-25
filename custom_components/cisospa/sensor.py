@@ -119,8 +119,7 @@ class CiscoSPASensor(Entity):
             'line': self._line,
         }
 
-    @asyncio.coroutine
-    def async_update(self):
+    async def async_update(self):
         """Get the latest data from Cisco SPA and update the state."""
         _LOGGER.info("Updating sensor %s", self._name)
         self.cisco_data.update()
