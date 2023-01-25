@@ -138,7 +138,7 @@ class CiscoData(object):
         self.data = {}
 
     @Throttle(MIN_TIME_BETWEEN_UPDATES)
-    def update(self):
+    async def async_update(self):
         """Get the latest data from Cisco SPA."""
         _LOGGER.info("Updating data object")
         from pyciscospa.client import PyCiscoSPAError
