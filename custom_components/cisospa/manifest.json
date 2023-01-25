@@ -1,6 +1,7 @@
 {
-  "domain": "cisospa",
-  "name": "cisospa",
+  "domain": "ciscospa",
+  "name": "ciscospa",
+  "integration_type": "entity",
   "config_flow": false,
   "documentation": "https://github.com/juanjoSanz/CiscoSPA-HACS",
   "requirements": ["pyciscospa==0.1.4"],
