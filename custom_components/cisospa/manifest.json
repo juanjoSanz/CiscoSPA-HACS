@@ -2,8 +2,8 @@
   "domain": "cisospa",
   "name": "cisospa",
   "documentation": "https://github.com/juanjoSanz/CiscoSPA-HACS",
+  "requirements": ["pyciscospa==0.1.4"],
   "dependencies": [],
+  "version": "0.1",
   "codeowners": ["@juanjoSanz", "@davejcameron"],
-  "requirements": [],
-  "homeassistant": ""
 }
