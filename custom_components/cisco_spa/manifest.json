@@ -1,6 +1,6 @@
 {
-  "domain": "ciscospa",
-  "name": "ciscospa",
+  "domain": "cisco_spa",
+  "name": "cisco_spa",
   "integration_type": "entity",
   "config_flow": false,
   "documentation": "https://github.com/juanjoSanz/CiscoSPA-HACS",
@@ -8,5 +8,5 @@
   "dependencies": [],
   "codeowners": ["@juanjoSanz", "@davejcameron"],
   "iot_class": "local_polling",
-  "version": "0.2"
+  "version": "0.3"
 }

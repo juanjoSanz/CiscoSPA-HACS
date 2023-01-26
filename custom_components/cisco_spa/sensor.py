@@ -51,7 +51,7 @@ SENSOR_TYPES = {
 
 DEFAULT_NAME = 'Phone'
 
-DEFAULT_INTERVAL = datetime.timedelta(seconds=10)
+SCAN_INTERVAL = datetime.timedelta(seconds=10)
 
 
 
@@ -61,10 +61,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
     vol.Optional(CONF_USERNAME, default='admin'): cv.string,
     vol.Optional(CONF_PASSWORD, default='admin'): cv.string,
-    vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string,
-    vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_INTERVAL): vol.All(
-            cv.time_period, cv.positive_timedelta
-    ),
+    vol.Optional(CONF_NAME, default=DEFAULT_NAME): cv.string
 })
 
 
@@ -80,10 +77,9 @@ async def async_setup_platform(
     username = config.get(CONF_USERNAME)
     password = config.get(CONF_PASSWORD)
     name = config.get(CONF_NAME)
-    scan_interval = config[CONF_SCAN_INTERVAL]
 
     try:
-        cisco_data = CiscoData(hostname, username, password, scan_interval)
+        cisco_data = CiscoData(hostname, username, password)
         cisco_data.update()
     except requests.exceptions.HTTPError as error:
         _LOGGER.error("Failed login: %s", error)
@@ -152,14 +148,13 @@ class CiscoSPASensor(SensorEntity):
 class CiscoData(object):
     """Get data from Cisco."""
 
-    def __init__(self, hostname, username, password, interval):
+    def __init__(self, hostname, username, password):
         """Initialize the data object."""
         self.client = CiscoClient(hostname, username, password)
-        self.interval = interval
         self.data = {}
         
         # Apply throttling to methods using configured interval
-        self.update = Throttle(interval)(self._update)
+        self.update = Throttle(SCAN_INTERVAL)(self._update)
 
         
     def _update(self):
