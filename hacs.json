@@ -1,3 +1,5 @@
 {
-  "name": "Cisco SPA Sensor"
+  "name": "Cisco SPA Sensor",
+  "content_in_root": false,
+  "render_readme": true
 }
