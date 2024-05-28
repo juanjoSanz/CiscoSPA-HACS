@@ -92,7 +92,7 @@ def setup_platform(
                                           line['line']))
 
     _LOGGER.info("Loading sensors %s", sensors)
-    add_devices(sensors, update_before_add=True)
+    add_entities(sensors, update_before_add=True)
     
 
 
